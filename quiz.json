@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "experiment": "ssl-tls",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq-single",
+      "prompt": "What does TLS stand for?",
+      "options": ["Transport Level Security", "Transport Layer Security", "Transmission Layer Security", "Transitional Link Security"],
+      "answerIndex": 1,
+      "explanation": "TLS stands for Transport Layer Security, the successor to SSL."
+    },
+    {
+      "id": "q2",
+      "type": "mcq-single",
+      "prompt": "What major performance improvement does TLS 1.3 offer over TLS 1.2 during a new handshake?",
+      "options": ["0-RTT by default", "1-RTT instead of 2-RTT", "No handshake required", "2-RTT instead of 3-RTT"],
+      "answerIndex": 1,
+      "explanation": "TLS 1.3 reduces the handshake from 2 round trips to 1 round trip."
+    },
+    {
+      "id": "q3",
+      "type": "mcq-single",
+      "prompt": "Why was the RSA Key Exchange deprecated in TLS 1.3?",
+      "options": ["It was too slow", "It lacked Perfect Forward Secrecy", "It used too much bandwidth", "It was incompatible with AES-GCM"],
+      "answerIndex": 1,
+      "explanation": "Static RSA key exchange does not provide Perfect Forward Secrecy."
+    },
+    {
+      "id": "q4",
+      "type": "mcq-single",
+      "prompt": "What is the primary purpose of the Client Random and Server Random?",
+      "options": ["To prevent replay attacks and ensure unique session keys", "To compress the payload", "To authenticate the server certificate", "To identify the user uniquely"],
+      "answerIndex": 0,
+      "explanation": "Randoms ensure freshness and prevent replay attacks."
+    },
+    {
+      "id": "q5",
+      "type": "mcq-single",
+      "prompt": "In the TLS handshake, what is the role of the ChangeCipherSpec message?",
+      "options": ["To request a new certificate", "To signal that subsequent records will be encrypted", "To terminate the connection", "To update the TCP port"],
+      "answerIndex": 1,
+      "explanation": "It tells the other party that all future messages will be encrypted with the negotiated keys."
+    }
+  ]
+}
