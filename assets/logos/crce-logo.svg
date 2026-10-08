@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 70" width="240" height="70">
+  <g id="crest" transform="translate(5, 5)">
+    <!-- Shield Outer -->
+    <path d="M 10 5 L 45 5 L 45 35 Q 45 55 27.5 62 Q 10 55 10 35 Z" fill="#003366" stroke="#b8860b" stroke-width="2"/>
+    <!-- Inner Cross & Symbols -->
+    <path d="M 27.5 8 L 27.5 58" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="1,1"/>
+    <path d="M 12 30 L 43 30" stroke="#ffffff" stroke-width="1.5"/>
+    <!-- Book/Flame icon representation -->
+    <path d="M 20 20 Q 27.5 15 35 20 Q 27.5 25 20 20 Z" fill="#ffd700"/>
+    <circle cx="27.5" cy="18" r="3" fill="#ff4500"/>
+    <!-- Gear representation -->
+    <circle cx="27.5" cy="42" r="7" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="27.5" cy="42" r="3" fill="#ffd700"/>
+  </g>
+  <!-- College Text Branding -->
+  <g transform="translate(62, 16)">
+    <text x="0" y="10" font-family="'Open Sans', sans-serif" font-weight="800" font-size="15" fill="#003366" letter-spacing="0.5">FR. CRCE</text>
+    <text x="0" y="24" font-family="'Open Sans', sans-serif" font-weight="600" font-size="9.5" fill="#333333">Fr. Conceicao Rodrigues</text>
+    <text x="0" y="36" font-family="'Open Sans', sans-serif" font-weight="500" font-size="8.5" fill="#555555">College of Engineering, Mumbai</text>
+    <text x="0" y="47" font-family="'Open Sans', sans-serif" font-weight="400" font-size="7.5" fill="#ff6600">Department of Computer Engineering</text>
+  </g>
+</svg>

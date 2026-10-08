@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Setup Guide | Virtual Cryptography Laboratory</title>
+  <style>
+    :root { --brown: #8B6F5E; --blue: #0D5FCC; --tan: #E8D5C4; --bg: #FEFDFB; --text: #2C2C2C; --muted: #665B55; --border: #C9AFA0; --code: #F3ECE7; }
+    * { box-sizing: border-box; }
+    @page { margin: 18mm; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 11pt/1.55 Georgia, "Times New Roman", serif; }
+    a { color: var(--text); text-decoration: underline; }
+    .header { padding: 24px 28px; background: var(--brown); color: #fff; border-bottom: 5px solid #7C5D52; }
+    .header p { margin: 5px 0; }
+    .header .eyebrow { font: 700 9pt Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    h1 { margin: 12px 0 4px; font-size: 30pt; line-height: 1.1; }
+    h2 { margin: 0 0 12px; color: #7C5D52; font-size: 20pt; line-height: 1.15; }
+    h3 { margin: 0 0 6px; color: #7C5D52; font-size: 14pt; }
+    .content { max-width: 900px; margin: 0 auto; }
+    .intro { margin: 20px 0; padding: 14px 18px; background: var(--tan); border-left: 4px solid var(--brown); }
+    .section { margin: 0 0 30px; padding-top: 4px; page-break-before: always; }
+    .section:first-of-type { page-break-before: auto; }
+    .checks, .steps { margin: 0; padding-left: 24px; }
+    .checks li, .steps li { margin: 7px 0; }
+    .checks li::marker { color: var(--blue); content: "✓  "; font-weight: bold; }
+    .code { margin: 12px 0; padding: 13px 16px; overflow-wrap: anywhere; background: var(--code); border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 4px; color: var(--text); font: 9.5pt/1.55 Consolas, "Courier New", monospace; white-space: pre-wrap; }
+    .columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .panel { padding: 13px; border: 1px solid var(--border); background: #fff; break-inside: avoid; }
+    .tree { padding: 15px; background: var(--code); border: 1px solid var(--border); font: 8.5pt/1.55 Consolas, "Courier New", monospace; white-space: pre; }
+    .note { margin: 12px 0; padding: 12px 15px; border: 1px solid var(--border); background: #FAF4EF; }
+    .links { margin: 0; padding-left: 22px; }
+    footer { margin-top: 36px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--muted); font-size: 9pt; }
+    @media print { .no-print { display: none !important; } .section { page-break-before: always; } .section:first-of-type { page-break-before: auto; } a { color: #000; } }
+    @media screen and (max-width: 700px) { body { padding: 0 16px; } .header { margin: 0 -16px; } .columns { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <header class="header">
+      <p class="eyebrow">CSS TH ISE · Cryptographic Security Systems</p>
+      <h1>Virtual Cryptography Laboratory</h1>
+      <p>Printable setup guide for students and instructors</p>
+    </header>
+
+    <p class="intro"><strong>Purpose:</strong> Set up the static portal locally, select your group branch, verify the shared experiment interface, and understand how the integration team publishes the site.</p>
+
+    <section class="section" id="prerequisites">
+      <h2>1. Prerequisites</h2>
+      <ul class="checks">
+        <li><strong>Git</strong> for cloning, branching, committing, and pull requests.</li>
+        <li><strong>Python 3</strong> or another static HTTP server.</li>
+        <li><strong>Modern browser</strong> such as Chrome, Firefox, or Safari.</li>
+        <li><strong>GitHub account</strong> with access to the course repository.</li>
+        <li><strong>Code editor</strong> such as VS Code.</li>
+      </ul>
+    </section>
+
+    <section class="section" id="clone">
+      <h2>2. Clone the Repository</h2>
+      <p>Open a terminal and run these commands:</p>
+      <div class="code">git clone https://github.com/Manthan2907/cryptography-virtual-lab.git
+cd cryptography-virtual-lab</div>
+      <p>The portal is static. No package installation or backend service is required.</p>
+    </section>
+
+    <section class="section" id="local">
+      <h2>3. Run Locally</h2>
+      <div class="columns">
+        <div class="panel"><h3>macOS / Linux</h3><div class="code">cd cryptography-virtual-lab
+python3 -m http.server 8000</div><p>Open <code>http://localhost:8000</code>.</p></div>
+        <div class="panel"><h3>Windows PowerShell</h3><div class="code">cd cryptography-virtual-lab
+py -m http.server 8000</div><p>Open <code>http://localhost:8000</code>.</p></div>
+        <div class="panel"><h3>Stop the server</h3><div class="code">Ctrl+C</div><p>Use this in the terminal when finished testing.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="branches">
+      <h2>4. Branch Structure</h2>
+      <p><code>main</code> belongs to the integration team. Each group uses its matching branch and experiment folder.</p>
+      <div class="tree">cryptography-virtual-lab/
+├── main                                     ← integration team
+└── group-cryptographic-hash-functions       ← Cryptographic Hash Functions group
+    group-properties-hash-functions          ← Properties of Secure Hash Function group
+    group-md5                                ← MD5 group
+    group-sha1                               ← SHA-1 group
+    group-mac                                ← MAC group
+    group-hmac                               ← HMAC group
+    group-needham-schroeder                  ← Needham-Schroeder group
+    group-kerberos                           ← Kerberos group
+    group-rsa                                ← RSA Digital Signature group
+    group-rsa-digital-signature-hash         ← RSA with Hash group
+    group-bcrypt                             ← bcrypt group
+    group-argon2                             ← Argon2 group
+    group-argon2id                           ← Argon2id group
+    group-password-hashing-comparison        ← Password Hashing Comparison group
+    group-rsa-digital-signature              ← RSA Signature (Standalone) group
+    group-access-control-fundamentals        ← Access Control Fundamentals group
+    group-access-control-list                ← Access Control List (ACL) group
+    group-classical-encryption               ← Classical Encryption group
+    group-extended-euclidean                 ← Extended Euclidean group
+    group-brute-force                        ← Brute Force group
+    group-dictionary-attack                  ← Dictionary Attack group
+    group-frequency-analysis                 ← Frequency Analysis group
+    group-ssl-tls                            ← SSL/TLS Handshake group</div>
+      <div class="code">git checkout group-&lt;your-experiment-name&gt;</div>
+      <p>Replace with your assigned branch. Never develop directly on <code>main</code>. Bundled client libraries available in <code>js/vendor/</code> (CryptoJS, Forge, bcrypt, Hash-WASM).</p>
+    </section>
+
+    <section class="section" id="verify">
+      <h2>5. Verify Setup</h2>
+      <ol class="steps">
+        <li>Open <code>http://localhost:8000</code> and confirm the brown header and experiment cards appear.</li>
+        <li>Open an experiment and click Theory, Procedure, Simulation, and Quiz.</li>
+        <li>Confirm the shared styling and active tab behavior work.</li>
+        <li>Check the browser console for red errors.</li>
+        <li>Confirm your current branch.</li>
+      </ol>
+      <div class="code">git status
+git branch --show-current
+git log --oneline -1</div>
+    </section>
+
+    <section class="section" id="troubleshooting">
+      <h2>6. Troubleshooting</h2>
+      <div class="columns">
+        <div class="panel"><h3>Python command not found</h3><p>On Windows use <code>py -m http.server 8000</code>. Otherwise install Python 3 and enable PATH integration.</p></div>
+        <div class="panel"><h3>Unstyled page</h3><p>Start the server from the repository root, not from <code>docs</code> or an experiment folder. Refresh the browser.</p></div>
+        <div class="panel"><h3>Port is busy</h3><p>Use another port, such as <code>python3 -m http.server 8080</code>.</p></div>
+        <div class="panel"><h3>GitHub access fails</h3><p>Check the URL, network connection, and repository invitation.</p></div>
+        <div class="panel"><h3>Wrong branch</h3><p>Run <code>git branch --show-current</code> and switch to the assigned group branch.</p></div>
+        <div class="panel"><h3>Script error</h3><p>Open the browser console and include the exact error and test input when requesting help.</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="pages">
+      <h2>7. GitHub Pages Deployment</h2>
+      <ol class="steps">
+        <li>Open the repository on GitHub and choose <strong>Settings</strong>.</li>
+        <li>Choose <strong>Pages</strong> in the left menu.</li>
+        <li>Select <strong>Deploy from a branch</strong>.</li>
+        <li>Choose branch <code>main</code> and folder <code>/(root)</code>.</li>
+        <li>Choose <strong>Save</strong>, wait for deployment, and open the published URL.</li>
+      </ol>
+      <div class="note"><strong>Screenshot description:</strong> The Pages settings should show “Deploy from a branch”, branch “main”, folder “/(root)”, and a published status.</div>
+      <p>Published portal: <a href="https://manthan2907.github.io/cryptography-virtual-lab/">https://manthan2907.github.io/cryptography-virtual-lab/</a></p>
+    </section>
+
+    <section class="section" id="help">
+      <h2>8. Getting Help</h2>
+      <p>Before asking for help, record your branch, operating system, browser, command, and exact error message.</p>
+      <ul class="links">
+        <li><a href="group-instructions.html">Group Instructions</a></li>
+        <li><a href="pr-rules.html">Pull Request Rules</a></li>
+        <li><a href="api-specs.html">Experiment API Specifications</a></li>
+        <li><a href="project-readme.html">Project README</a></li>
+      </ul>
+    </section>
+
+    <footer>Virtual Cryptography Laboratory · CSS TH ISE · Printable reference</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Group Instructions | Virtual Cryptography Laboratory</title><link rel="stylesheet" href="documentation.css"></head><body>
+<header class="doc-header"><div class="doc-header-inner"><a class="back-link" href="setup.html">← Back to setup guide</a><p class="doc-kicker">Student team handbook</p><h1>Group Instructions</h1></div></header>
+<main class="doc-main"><p class="lead">Each group implements one experiment inside its assigned folder. The integration team owns the portal shell and shared behavior.</p>
+<h2>Your allowed folder</h2><div class="card"><p>For example, the MD5 group works on branch <strong>group-md5</strong> and folder <strong>experiments/md5/</strong>.</p><div class="code">experiments/md5/
+├── index.html
+├── script.js
+└── README.md</div></div>
+<h2>What you may edit</h2><ul class="checklist"><li>Content inside the <code>theory</code> section.</li><li>Content inside the <code>procedure</code> section.</li><li>Experiment controls and output markup inside <code>simulation</code>.</li><li>Quiz questions inside <code>quiz</code>.</li><li>Your folder's <code>script.js</code> and <code>README.md</code>.</li></ul>
+<h2>What you must not edit</h2><div class="card"><ul><li>Root <code>index.html</code>, <code>css/</code>, or shared JavaScript.</li><li><code>.github/</code>, <code>docs/</code>, or another group's folder.</li><li>The outer structure, tab buttons, IDs, or shared asset paths of your experiment page.</li></ul></div>
+<h2>Content requirements</h2><ul><li>Theory: at least 300 accurate words.</li><li>Procedure: at least 4 clear numbered steps.</li><li>Simulation: interactive controls with visible output.</li><li>Quiz: at least 3 questions with answer handling.</li><li>README: inputs, outputs, dependencies, test cases, and known limitations.</li></ul>
+<h2>Example workflow</h2><ol><li>Checkout your assigned group branch.</li><li>Work only in your experiment folder.</li><li>Run <code>python3 -m http.server 8000</code>.</li><li>Test in a current browser and check the console.</li><li>Commit, push, and open a pull request to <code>main</code>.</li></ol>
+<h2>Pull request</h2><div class="callout">Complete the repository pull request template and include screenshots or a short demo, test cases, and known issues. The validation workflow rejects changes outside the assigned experiment folder.</div></main><footer class="doc-footer">Virtual Cryptography Laboratory · CSS TH ISE</footer></body></html>

@@ -1,0 +1,27 @@
+# Integration team owns the complete repository by default.
+* @Manthan2907
+
+# Student group experiment paths
+/experiments/cryptographic-hash-functions/ @Manthan2907
+/experiments/properties-hash-functions/ @Manthan2907
+/experiments/md5/ @Manthan2907
+/experiments/sha1/ @Manthan2907
+/experiments/mac/ @Manthan2907
+/experiments/hmac/ @Manthan2907
+/experiments/needham-schroeder/ @Manthan2907
+/experiments/kerberos/ @Manthan2907
+/experiments/rsa/ @Manthan2907
+/experiments/rsa-digital-signature/ @Manthan2907
+/experiments/rsa-digital-signature-hash/ @Manthan2907
+/experiments/bcrypt/ @Manthan2907
+/experiments/argon2/ @Manthan2907
+/experiments/argon2id/ @Manthan2907
+/experiments/password-hashing-comparison/ @Manthan2907
+/experiments/access-control-fundamentals/ @Manthan2907
+/experiments/access-control-list/ @Manthan2907
+/experiments/classical-encryption/ @Manthan2907
+/experiments/extended-euclidean/ @Manthan2907
+/experiments/brute-force/ @Manthan2907
+/experiments/dictionary-attack/ @Manthan2907
+/experiments/frequency-analysis/ @Manthan2907
+/experiments/ssl-tls/ @Manthan2907

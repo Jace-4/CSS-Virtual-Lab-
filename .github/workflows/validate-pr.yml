@@ -1,0 +1,74 @@
+name: Validate experiment pull request
+
+on:
+	pull_request:
+		branches: [main]
+
+permissions:
+	contents: read
+	pull-requests: read
+
+jobs:
+	validate:
+		name: Validate group scope and experiment files
+		runs-on: ubuntu-latest
+		steps:
+			- name: Check out pull request
+				uses: actions/checkout@v4
+				with:
+					fetch-depth: 0
+
+			- name: Validate branch scope and required files
+				shell: bash
+				env:
+					BASE_SHA: ${{ github.event.pull_request.base.sha }}
+					HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+					HEAD_BRANCH: ${{ github.head_ref }}
+				run: |
+					set -euo pipefail
+
+					if [[ ! "$HEAD_BRANCH" =~ ^group-[a-z0-9-]+$ ]]; then
+						echo "Pull requests to main must come from a group-* branch."
+						exit 1
+					fi
+
+					group="${HEAD_BRANCH#group-}"
+					allowed="experiments/$group/"
+					mapfile -t changed < <(git diff --name-only "$BASE_SHA...$HEAD_SHA")
+
+					if [[ "${#changed[@]}" -eq 0 ]]; then
+						echo "No changed files found."
+						exit 1
+					fi
+
+					for file in "${changed[@]}"; do
+						if [[ "$file" != "$allowed"* ]]; then
+							echo "Forbidden change outside $allowed: $file"
+							exit 1
+						fi
+					done
+
+					for required in index.html script.js README.md; do
+						if [[ ! -f "$allowed$required" ]]; then
+							echo "Missing required file: $allowed$required"
+							exit 1
+						fi
+					done
+
+					index="$allowed/index.html"
+					for marker in 'id="theory"' 'id="procedure"' 'id="simulation"' 'id="quiz"' 'class="tab-navigation"' '../../js/common.js' 'script.js'; do
+						if ! grep -Fq "$marker" "$index"; then
+							echo "Required template marker missing from $index: $marker"
+							exit 1
+						fi
+					done
+
+					readme="$allowed/README.md"
+					for marker in 'Input' 'Output' 'Test'; do
+						if ! grep -iq "$marker" "$readme"; then
+							echo "README must document $marker: $readme"
+							exit 1
+						fi
+					done
+
+					echo "Validated $HEAD_BRANCH. Changes are limited to $allowed."
