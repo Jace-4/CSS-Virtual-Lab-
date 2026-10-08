@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Virtual Cryptography Laboratory - SSL/TLS Overview">
+    <title>SSL/TLS Overview | Virtual Cryptography Laboratory</title>
+    <link rel="stylesheet" href="../../css/variables.css">
+    <link rel="stylesheet" href="../../css/experiment.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+
+    <div class="experiment-container">
+      <header class="exp-header">
+
+        <p class="exp-kicker">Cryptographic Security Systems</p>
+        <h1 id="exp-title">SSL/TLS Overview</h1>
+        <p id="exp-description">Simulate the SSL/TLS handshake protocol and demonstrate the sequence of cryptographic messages exchanged between a client and server.</p>
+      </header>
+
+      <nav class="tab-navigation" aria-label="Experiment sections">
+        <button class="tab-btn active" type="button" data-tab="aim" aria-selected="true">Aim</button>
+        <button class="tab-btn" type="button" data-tab="theory" aria-selected="false">Theory</button>
+        <button class="tab-btn" type="button" data-tab="procedure" aria-selected="false">Procedure</button>
+        <button class="tab-btn" type="button" data-tab="simulation" aria-selected="false">Simulation</button>
+        <button class="tab-btn" type="button" data-tab="observations" aria-selected="false">Observations</button>
+        <button class="tab-btn" type="button" data-tab="quiz" aria-selected="false">Quiz</button>
+        <button class="tab-btn" type="button" data-tab="references" aria-selected="false">References</button>
+        <button class="tab-btn" type="button" data-tab="feedback" aria-selected="false">Feedback</button>
+      </nav>
+
+      <main class="content-area">
+        <!-- AIM -->
+        <section id="aim" class="tab-content active" data-tab-panel="aim">
+          <div class="content-placeholder">
+            <h2>Aim</h2>
+            <p>Study and simulate the basic architecture and working of the SSL/TLS protocol between a client and a server. Simulate the SSL/TLS handshake process and demonstrate the sequence of cryptographic messages exchanged between the client and server. This includes understanding the differences between TLS 1.2 and TLS 1.3, observing how Perfect Forward Secrecy is achieved through Ephemeral Diffie-Hellman (ECDHE) key exchanges, and verifying digital certificates to defend against Man-in-the-Middle (MITM) attacks.</p>
+          </div>
+        </section>
+
+        <!-- THEORY -->
+        <section id="theory" class="tab-content" data-tab-panel="theory" hidden>
+          <div class="content-placeholder">
+            <h2>Theory</h2>
+            <h3>What is SSL/TLS?</h3>
+            <p>Transport Layer Security (TLS), and its now-deprecated predecessor, Secure Sockets Layer (SSL), are cryptographic protocols designed to provide communications security over a computer network. The primary goals are <strong>confidentiality</strong> (encryption), <strong>integrity</strong> (message authentication codes), and <strong>authentication</strong> (digital certificates).</p>
+
+            <h3>Position in the Network Stack</h3>
+            <p>TLS resides between the Application layer (e.g., HTTP) and the Transport layer (TCP). It wraps application data in an encrypted tunnel before passing it to TCP.</p>
+            
+            <h3>TLS Architecture</h3>
+            <p>The TLS protocol consists of two main layers:</p>
+            <ul>
+              <li><strong>Handshake Protocol:</strong> Used to negotiate cipher suites, authenticate the server (and optionally the client), and securely exchange keying material before data transmission.</li>
+              <li><strong>Record Protocol:</strong> Secures application data using the keys generated during the handshake. It fragments, compresses (optional), adds a MAC, and encrypts the data.</li>
+            </ul>
+            <p>Other sub-protocols include the <em>Alert Protocol</em> for errors/warnings and <em>ChangeCipherSpec</em> to signal the transition to encrypted communication.</p>
+
+            <h3>Key Concepts</h3>
+            <ul>
+              <li><strong>Certificates & CAs:</strong> Digital certificates bind a public key to an entity's identity, verified by a trusted Certificate Authority (CA) via a chain of trust.</li>
+              <li><strong>Cipher Suites:</strong> A named combination of authentication, encryption, MAC, and key exchange algorithms (e.g., <code>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</code>).</li>
+              <li><strong>Key Derivation:</strong> Client and Server Randoms, combined with a shared Pre-Master Secret (e.g., via ECDHE), generate a Master Secret, which yields symmetric session keys for encryption and MACs.</li>
+            </ul>
+
+            <h3>TLS 1.2 vs TLS 1.3</h3>
+            <p>TLS 1.2 requires 2 Round-Trip Times (RTT) for a full handshake. TLS 1.3 optimizes this to 1-RTT by sending key shares directly in the ClientHello, drops obsolete ciphers (like static RSA key exchange), and encrypts more of the handshake.</p>
+          </div>
+        </section>
+
+        <!-- PROCEDURE -->
+        <section id="procedure" class="tab-content" data-tab-panel="procedure" hidden>
+          <div class="content-placeholder">
+            <h2>Procedure</h2>
+            <ol>
+              <li>Go to the <strong>Simulation</strong> tab.</li>
+              <li>Configure the simulation settings (TLS Version, Key Exchange, Certificate validity, Scenario).</li>
+              <li>Use the <strong>Play</strong> button to start the automated handshake animation, or use <strong>Step Forward</strong> to walk through it manually.</li>
+              <li>Observe the messages exchanged in the central network channel. Click on a message to inspect its payload (version, randoms, ciphers, key shares) in the <em>Packet Inspector</em>.</li>
+              <li>Once the handshake completes, enter a plaintext message in the client terminal and send it to observe application data encryption.</li>
+              <li>View the Event Log and Metrics Dashboard to analyze cryptographic operations and round trips.</li>
+              <li>Try different failure scenarios (e.g., Expired Certificate, Man-in-the-Middle) to see how TLS defends against attacks.</li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- SIMULATION -->
+        <section id="simulation" class="tab-content" data-tab-panel="simulation" hidden>
+          <div class="sim-config">
+            <h3>Configuration</h3>
+            <div class="config-grid">
+              <label>TLS Version:
+                <select id="tlsVersion">
+                  <option value="1.2">TLS 1.2 (2-RTT)</option>
+                  <option value="1.3" selected>TLS 1.3 (1-RTT)</option>
+                </select>
+              </label>
+              <label>Key Exchange:
+                <select id="keyExchange">
+                  <option value="ECDHE">ECDHE</option>
+                  <option value="RSA">RSA (Static)</option>
+                </select>
+              </label>
+              <label>Scenario:
+                <select id="simScenario">
+                  <option value="success">Normal (Success)</option>
+                  <option value="expired">Expired Certificate</option>
+                  <option value="mitm">Man-in-the-Middle (Forged Cert)</option>
+                  <option value="tampered">Tampered Finished Message</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="sim-controls">
+            <button id="btnPlay">Play Auto-Run</button>
+            <button id="btnStepFwd">Step Forward</button>
+            <button id="btnReset">Reset</button>
+            <label>Speed: <input type="range" id="simSpeed" min="1" max="5" value="3"></label>
+          </div>
+
+          <div class="sim-layout">
+            <div class="sim-main-col">
+              <div class="sim-workspace">
+                <div class="node-panel client-panel">
+                  <div class="node-header">Client (Browser)</div>
+                  <div class="state-indicator" id="clientState">INITIAL</div>
+                  <div class="crypto-state" id="clientCrypto">Keys: None</div>
+                  <div class="app-data">
+                    <input type="text" id="appInput" placeholder="Wait for successful handshake..." disabled>
+                    <button id="btnSendApp" disabled>Send</button>
+                  </div>
+                </div>
+
+                <div class="network-channel" id="networkChannel">
+                  <!-- Animated sequence diagram container -->
+                  <svg id="sequenceSvg" width="100%" height="100%"></svg>
+                  <div id="messagesContainer"></div>
+                </div>
+
+                <div class="node-panel server-panel">
+                  <div class="node-header">Server</div>
+                  <div class="state-indicator" id="serverState">INITIAL</div>
+                  <div class="crypto-state" id="serverCrypto">Keys: None</div>
+                  <div class="app-data" id="serverOutputBox">
+                    <p class="server-rcvd-msg">Awaiting data...</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="inspector-panel">
+                <div class="inspector-header">Packet Inspector</div>
+                <div id="inspectorContent">Select a message in the sequence to view its contents.</div>
+              </div>
+            </div>
+
+            <div class="sim-side-col">
+              <div class="explanation-panel" id="explanationPanel">
+                <h3>What's happening?</h3>
+                <p id="explanationText">Configure settings and start the simulation.</p>
+              </div>
+
+              <div class="metrics-panel">
+                <div class="metrics-card">
+                  <h4>Metrics & Event Log</h4>
+                  <p>Round Trips: <span id="rttCount">0</span></p>
+                  <p>Handshake Status: <span id="hsStatusBadge">Not Started</span></p>
+                  <ul id="eventLog" class="event-log"></ul>
+                  <button id="btnExportLog">Export Lab Report</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- OBSERVATIONS -->
+        <section id="observations" class="tab-content" data-tab-panel="observations" hidden>
+          <div class="content-placeholder">
+            <h2>Observations & Results</h2>
+            <table class="obs-table" id="obsTable">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Direction</th>
+                  <th>Message Type</th>
+                  <th>Crypto Operation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="4">Run the simulation to generate observations.</td></tr>
+              </tbody>
+            </table>
+            <h3>Conclusion</h3>
+            <p id="conclusionText">Awaiting simulation completion.</p>
+          </div>
+        </section>
+
+        <!-- QUIZ -->
+        <section id="quiz" class="tab-content" data-tab-panel="quiz" hidden>
+          <div class="quiz-panel">
+            <h2>Knowledge Check</h2>
+            <div id="quizContainer"></div>
+            <button id="btnSubmitQuiz" style="margin-top: 20px;">Submit Quiz</button>
+            <div id="quizScore" style="margin-top: 15px; font-weight: bold;"></div>
+          </div>
+        </section>
+
+        <!-- FEEDBACK -->
+        <section id="feedback" class="tab-content" data-tab-panel="feedback" hidden>
+          <div class="content-placeholder">
+            <h2>Feedback</h2>
+            <p>We value your feedback! Please let us know your thoughts on this Virtual Lab.</p>
+            <form id="feedbackForm" class="feedback-form" style="max-width: 500px; margin-top: 20px;">
+              <label style="display:block; margin-bottom: 15px; font-weight: bold;">
+                Rating:
+                <div class="star-rating" id="starRating" style="font-size: 30px; color: #ccc; cursor: pointer; user-select: none;">
+                  <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+                </div>
+                <input type="hidden" name="rating" id="fbRating" value="0" required>
+              </label>
+              <label style="display:block; margin-bottom: 15px; font-weight: bold;">
+                Feedback Message:
+                <textarea name="message" id="fbMessage" class="form-input" rows="5" placeholder="Your anonymous comments, suggestions, or issues..." required style="margin-top: 5px; resize: vertical; width: 100%;"></textarea>
+              </label>
+              <button type="submit" class="button button-primary">Submit Feedback</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- REFERENCES -->
+        <section id="references" class="tab-content" data-tab-panel="references" hidden>
+          <div class="content-placeholder">
+            <h2>References</h2>
+            <ul>
+              <li><a href="https://datatracker.ietf.org/doc/html/rfc5246" target="_blank">RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2</a></li>
+              <li><a href="https://datatracker.ietf.org/doc/html/rfc8446" target="_blank">RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3</a></li>
+              <li>William Stallings, <em>Cryptography and Network Security: Principles and Practice</em></li>
+            </ul>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- jsPDF for exporting reports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
